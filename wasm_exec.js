@@ -1,0 +1,1 @@
+/usr/local/Cellar/go/1.15.5/libexec/misc/wasm/wasm_exec.js
