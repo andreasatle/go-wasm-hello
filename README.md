@@ -12,11 +12,11 @@ func main() {
 ```
 
 Compile the go-code with:
-```zsh
-GOOS=js GOARCH=wasm go build -o main.wasm
+```
+GOOS=js GOARCH=wasm go build -o hello.wasm
 ```
 
-HTML snippet:
+HTML snippet (index.html):
 ```html
 <html lang="en">
 <head>
@@ -24,7 +24,7 @@ HTML snippet:
     <script src="wasm_exec.js"></script>
     <script>
         const go = new Go();
-        WebAssembly.instantiateStreaming(fetch("main.wasm"), go.importObject).then((result)=>{
+        WebAssembly.instantiateStreaming(fetch("hello.wasm"), go.importObject).then((result)=>{
             go.run(result.instance);
         });
     </script>
@@ -36,14 +36,25 @@ HTML snippet:
 ```
 
 Copy $GOROOT/misc/wasm/wasm_exec.js to working directory.
+Looking at the javascript code in vscode gives the message:
+```
+Complexity is 181 Bloody hell...
+```
+This is a sign that one should avoid writing programs in javascript;)
 
-```zsh
+To serve the files write:
+```
 goexec 'http.ListenAndServe(`:8080`, http.FileServer(http.Dir(`.`)))'
+```
+You need to download the goexec:
+```
+go get -u github.com/shurcooL/goexec
 ```
 
 Finally
-```zsh
+```
 Hello, world!
 ```
-
 is written in the javascript-console in (e.g.) chrome.
+
+This is the very simplest program you can write in WebAssembly with Golang.
